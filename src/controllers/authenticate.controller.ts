@@ -6,9 +6,9 @@ import {
 	UsePipes,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { PrismaClient } from '@prisma/client';
 import { compare } from 'bcryptjs';
 import { ZodValidationPipe } from 'src/pipes/zod-validation.pipe';
+import { PrismaService } from 'src/prisma/prisma.service';
 import { z } from 'zod';
 
 const authenticateBodySchema = z.object({
@@ -18,10 +18,10 @@ const authenticateBodySchema = z.object({
 
 type AuthenticateBodySchema = z.infer<typeof authenticateBodySchema>;
 
-@Controller('/session')
+@Controller('/sessions')
 export class AuthenticateController {
 	constructor(
-		private readonly prisma: PrismaClient,
+		private readonly prisma: PrismaService,
 		private readonly jwt: JwtService,
 	) {}
 
