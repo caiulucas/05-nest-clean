@@ -27,5 +27,18 @@ Content-Type: application/json
 # @name create_question
 
 POST {{Host}}/questions
-Content-Type: application/json
 Authorization: Bearer {{AuthToken}}
+Content-Type: application/json
+
+{
+  "title": "New Question 2",
+  "content": "This is a new question 2."
+}
+
+###
+
+# @name fetch_recent_questions
+
+GET {{Host}}/questions
+Authorization: Bearer {{AuthToken}}
+Content-Type: application/json
