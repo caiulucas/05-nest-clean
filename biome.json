@@ -15,6 +15,9 @@
 			},
 			"nursery": {
 				"noUnusedImports": "error"
+			},
+			"complexity": {
+				"noStaticOnlyClass": "off"
 			}
 		}
 	},

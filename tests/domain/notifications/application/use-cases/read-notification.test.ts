@@ -23,7 +23,7 @@ describe('Read Notification Use Case', () => {
 		});
 
 		expect(result.isRight()).toBe(true);
-		expect(notificationsRepository.items[0].readAt).toBe(expect.any(Date));
+		expect(notificationsRepository.items[0].readAt).toEqual(expect.any(Date));
 	});
 
 	it('should be able to read a notification from another recipient', async () => {
