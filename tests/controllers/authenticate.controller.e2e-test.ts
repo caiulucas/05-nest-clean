@@ -8,6 +8,7 @@ import request from 'supertest';
 describe('Authenticate (E2E)', () => {
 	let app: INestApplication;
 	let prisma: PrismaService;
+
 	beforeAll(async () => {
 		const moduleRef = await Test.createTestingModule({
 			imports: [AppModule],
@@ -16,6 +17,7 @@ describe('Authenticate (E2E)', () => {
 		app = moduleRef.createNestApplication();
 
 		prisma = moduleRef.get(PrismaService);
+
 		app.init();
 	});
 

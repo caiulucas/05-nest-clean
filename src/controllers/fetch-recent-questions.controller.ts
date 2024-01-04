@@ -17,8 +17,8 @@ export class FetchRecentQuestionsController {
 	async handle(@Query('page', queryValidationPipe) page: number) {
 		const questions = await this.prisma.question.findMany({
 			orderBy: { createdAt: 'desc' },
-			take: 1,
-			skip: (page - 1) * 1,
+			take: 20,
+			skip: (page - 1) * 20,
 		});
 
 		return { questions };
