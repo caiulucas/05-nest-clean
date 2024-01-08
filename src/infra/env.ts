@@ -7,6 +7,6 @@ export const envSchema = z.object({
 	PAGE_SIZE: z.coerce.number().default(20),
 });
 
-export const env = envSchema.parse(process.env);
+// export const env = envSchema.parse(process.env);
 
 export type Env = z.infer<typeof envSchema>;
