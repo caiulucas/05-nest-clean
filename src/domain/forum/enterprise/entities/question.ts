@@ -12,7 +12,7 @@ export interface QuestionProps {
 	attachments: QuestionAttachmentList;
 	title: string;
 	content: string;
-	slug?: Slug;
+	slug: Slug;
 	createdAt: Date;
 	updatedAt?: Date | null;
 }
