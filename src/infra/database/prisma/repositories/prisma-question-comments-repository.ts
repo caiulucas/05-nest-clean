@@ -1,25 +1,51 @@
-// import { PaginationParams } from '@/core/repositories/pagination-params';
-// import { QuestionCommentsRepository } from '@/domain/forum/application/repositories/question-comments-repository';
-// import { QuestionComment } from '@/domain/forum/enterprise/entities/question-comment';
-// import { Injectable } from '@nestjs/common';
+import { PaginationParams } from '@/core/repositories/pagination-params';
+import { QuestionCommentsRepository } from '@/domain/forum/application/repositories/question-comments-repository';
+import { QuestionComment } from '@/domain/forum/enterprise/entities/question-comment';
+import { Injectable } from '@nestjs/common';
+import {
+	questionCommentToDomain,
+	questionCommentToPersistance,
+} from '../mappers/prisma-question-comment-mapper';
+import { PrismaService } from '../prisma.service';
 
-// @Injectable()
-// export class PrismaQuestionCommentsRepository
-// 	implements QuestionCommentsRepository
-// {
-// 	async create(questionComment: QuestionComment) {
-// 		throw new Error('Method not implemented.');
-// 	}
+const PAGE_SIZE = 20;
 
-// 	async delete(questionComment: QuestionComment) {
-// 		throw new Error('Method not implemented.');
-// 	}
+@Injectable()
+export class PrismaQuestionCommentsRepository
+	implements QuestionCommentsRepository
+{
+	constructor(private readonly prisma: PrismaService) {}
 
-// 	async findById(id: string) {
-// 		throw new Error('Method not implemented.');
-// 	}
+	async create(comment: QuestionComment) {
+		const data = questionCommentToPersistance(comment);
 
-// 	async findManyByQuestionId(questionId: string, params: PaginationParams) {
-// 		throw new Error('Method not implemented.');
-// 	}
-// }
+		await this.prisma.comment.create({ data });
+	}
+
+	async save(comment: QuestionComment) {
+		const data = questionCommentToPersistance(comment);
+
+		await this.prisma.comment.update({ data, where: { id: data.id } });
+	}
+
+	async delete(comment: QuestionComment) {
+		await this.prisma.comment.delete({ where: { id: comment.id.toValue() } });
+	}
+
+	async findById(id: string) {
+		const comment = await this.prisma.comment.findUnique({ where: { id } });
+
+		return comment ? questionCommentToDomain(comment) : null;
+	}
+
+	async findManyByQuestionId(questionId: string, params: PaginationParams) {
+		const comments = await this.prisma.comment.findMany({
+			where: { questionId },
+			orderBy: { createdAt: 'desc' },
+			take: PAGE_SIZE,
+			skip: PAGE_SIZE * (params.page - 1),
+		});
+
+		return comments.map((comment) => questionCommentToDomain(comment));
+	}
+}

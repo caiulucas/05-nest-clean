@@ -9,6 +9,7 @@ import {
 import { PrismaService } from '../prisma.service';
 
 const PAGE_SIZE = 20;
+
 @Injectable()
 export class PrismaQuestionsRepository implements QuestionsRepository {
 	constructor(private readonly prisma: PrismaService) {}
@@ -26,9 +27,7 @@ export class PrismaQuestionsRepository implements QuestionsRepository {
 	}
 
 	async delete(question: Question) {
-		const data = questionToPersistance(question);
-
-		await this.prisma.question.delete({ where: { id: data.id } });
+		await this.prisma.question.delete({ where: { id: question.id.toValue() } });
 	}
 
 	async findById(id: string) {

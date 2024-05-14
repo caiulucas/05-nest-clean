@@ -1,9 +1,9 @@
 import { UniqueEntityId } from '@/core/entities/unique-entity-id';
 import { QuestionAttachment } from '@/domain/forum/enterprise/entities/question-attachment';
-import type { Comment as PrismaComment } from '@prisma/client';
+import type { Attachment as PrismaAttachment } from '@prisma/client';
 
-export function questionCommentToDomain(
-	raw: PrismaComment,
+export function questionAttachmentToDomain(
+	raw: PrismaAttachment,
 ): QuestionAttachment {
 	if (!raw.questionId) {
 		throw new Error('Invalid attachment type.');

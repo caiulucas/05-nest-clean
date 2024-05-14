@@ -1,27 +1,48 @@
-// import { PaginationParams } from '@/core/repositories/pagination-params';
-// import { AnswersRepository } from '@/domain/forum/application/repositories/answers-repository';
-// import { Answer } from '@/domain/forum/enterprise/entities/answer';
-// import { Injectable } from '@nestjs/common';
+import { PaginationParams } from '@/core/repositories/pagination-params';
+import { AnswersRepository } from '@/domain/forum/application/repositories/answers-repository';
+import { Answer } from '@/domain/forum/enterprise/entities/answer';
+import { Injectable } from '@nestjs/common';
+import {
+	answerToDomain,
+	answerToPersistance,
+} from '../mappers/prisma-answer-mapper';
+import { PrismaService } from '../prisma.service';
 
-// @Injectable()
-// export class PrismaAnswersRepository implements AnswersRepository {
-// 	async create(answer: Answer) {
-// 		throw new Error('Method not implemented.');
-// 	}
+const PAGE_SIZE = 20;
 
-// 	async save(answer: Answer) {
-// 		throw new Error('Method not implemented.');
-// 	}
+@Injectable()
+export class PrismaAnswersRepository implements AnswersRepository {
+	constructor(private readonly prisma: PrismaService) {}
 
-// 	async delete(answer: Answer) {
-// 		throw new Error('Method not implemented.');
-// 	}
+	async create(answer: Answer) {
+		const data = answerToPersistance(answer);
 
-// 	async findById(id: string) {
-// 		throw new Error('Method not implemented.');
-// 	}
+		await this.prisma.answer.create({ data });
+	}
+	async save(answer: Answer) {
+		const data = answerToPersistance(answer);
 
-// 	async findManyByQuestionId(questionId: string, params: PaginationParams) {
-// 		throw new Error('Method not implemented.');
-// 	}
-// }
+		await this.prisma.question.update({ data, where: { id: data.id } });
+	}
+
+	async delete(answer: Answer) {
+		await this.prisma.answer.delete({ where: { id: answer.id.toString() } });
+	}
+
+	async findById(id: string) {
+		const answer = await this.prisma.answer.findUnique({ where: { id } });
+
+		return answer ? answerToDomain(answer) : null;
+	}
+
+	async findManyByQuestionId(questionId: string, params: PaginationParams) {
+		const answers = await this.prisma.answer.findMany({
+			where: { questionId },
+			orderBy: { createdAt: 'desc' },
+			take: PAGE_SIZE,
+			skip: PAGE_SIZE * (params.page - 1),
+		});
+
+		return answers.map((answer) => answerToDomain(answer));
+	}
+}
