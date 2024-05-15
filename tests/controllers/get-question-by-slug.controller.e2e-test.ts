@@ -5,7 +5,7 @@ import { JwtService } from '@nestjs/jwt';
 import { Test } from '@nestjs/testing';
 import request from 'supertest';
 
-describe('Create Question (E2E)', () => {
+describe('Get Question By Slug (E2E)', () => {
 	let app: INestApplication;
 	let prisma: PrismaService;
 	let jwt: JwtService;
@@ -23,7 +23,7 @@ describe('Create Question (E2E)', () => {
 		app.init();
 	});
 
-	test('[POST] /questions', async () => {
+	test('[GET] /questions/:slug', async () => {
 		const user = await prisma.user.create({
 			data: {
 				name: 'John Doe',
@@ -34,22 +34,25 @@ describe('Create Question (E2E)', () => {
 
 		const accessToken = jwt.sign({ sub: user.id });
 
-		const question = {
-			title: 'Test Question',
-			content: 'Test content for test question',
-		};
-
-		const response = await request(app.getHttpServer())
-			.post('/questions')
-			.set('Authorization', `Bearer ${accessToken}`)
-			.send(question);
-
-		expect(response.statusCode).toBe(201);
-
-		const questionOnDatabase = await prisma.question.findFirst({
-			where: { title: question.title, content: question.content },
+		await prisma.question.create({
+			data: {
+				title: 'Test Question',
+				content: 'Test content for test question',
+				authorId: user.id,
+				slug: 'test-question',
+			},
 		});
 
-		expect(questionOnDatabase).toBeTruthy();
+		const response = await request(app.getHttpServer())
+			.get('/questions/test-question')
+			.set('Authorization', `Bearer ${accessToken}`)
+			.send();
+
+		expect(response.statusCode).toBe(200);
+		expect(response.body).toEqual({
+			question: expect.objectContaining({
+				title: 'Test Question',
+			}),
+		});
 	});
 });

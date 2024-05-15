@@ -4,6 +4,7 @@ import { INestApplication } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Test } from '@nestjs/testing';
 import request from 'supertest';
+
 describe('Fetch Recent Questions (E2E)', () => {
 	let app: INestApplication;
 	let prisma: PrismaService;
@@ -33,22 +34,34 @@ describe('Fetch Recent Questions (E2E)', () => {
 
 		const accessToken = jwt.sign({ sub: user.id });
 
-		const question = {
-			title: 'Test Question',
-			content: 'Test content for test question',
-		};
+		const questions = [
+			{
+				authorId: user.id,
+				title: 'Test Question 01',
+				slug: 'test-question-01',
+				content: 'Test content for test question 01',
+			},
+			{
+				authorId: user.id,
+				title: 'Test Question 02',
+				slug: 'test-question-02',
+				content: 'Test content for test question 02',
+			},
+		];
+
+		await prisma.question.createMany({ data: questions });
 
 		const response = await request(app.getHttpServer())
-			.post('/questions')
+			.get('/questions')
 			.set('Authorization', `Bearer ${accessToken}`)
-			.send(question);
+			.send();
 
-		expect(response.statusCode).toBe(201);
-
-		const questionOnDatabase = await prisma.question.findFirst({
-			where: { title: question.title, content: question.content },
+		expect(response.statusCode).toBe(200);
+		expect(response.body).toEqual({
+			questions: [
+				expect.objectContaining({ title: questions[0].title }),
+				expect.objectContaining({ title: questions[1].title }),
+			],
 		});
-
-		expect(questionOnDatabase).toBeTruthy();
 	});
 });
