@@ -1,57 +1,51 @@
 import { AppModule } from '@/infra/app.module';
-import { PrismaService } from '@/infra/database/prisma/prisma.service';
+import { DatabaseModule } from '@/infra/database/database.module';
 import { INestApplication } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Test } from '@nestjs/testing';
 import request from 'supertest';
+import { QuestionFactory } from 'tests/domain/forum/application/factories/make-question';
+import { StudentFactory } from 'tests/domain/forum/application/factories/make-student';
 
 describe('Get Question By Slug (E2E)', () => {
 	let app: INestApplication;
-	let prisma: PrismaService;
+	let studentFactory: StudentFactory;
+	let questionFactory: QuestionFactory;
 	let jwt: JwtService;
 
 	beforeAll(async () => {
 		const moduleRef = await Test.createTestingModule({
-			imports: [AppModule],
+			imports: [AppModule, DatabaseModule],
+			providers: [StudentFactory, QuestionFactory],
 		}).compile();
 
 		app = moduleRef.createNestApplication();
 
-		prisma = moduleRef.get(PrismaService);
+		studentFactory = moduleRef.get(StudentFactory);
+		questionFactory = moduleRef.get(QuestionFactory);
 		jwt = moduleRef.get(JwtService);
 
 		app.init();
 	});
 
 	test('[GET] /questions/:slug', async () => {
-		const user = await prisma.user.create({
-			data: {
-				name: 'John Doe',
-				email: 'johndoe@example.com',
-				password: 'test!123',
-			},
-		});
+		const user = await studentFactory.makePrismaStudent();
 
-		const accessToken = jwt.sign({ sub: user.id });
+		const accessToken = jwt.sign({ sub: user.id.toValue() });
 
-		await prisma.question.create({
-			data: {
-				title: 'Test Question',
-				content: 'Test content for test question',
-				authorId: user.id,
-				slug: 'test-question',
-			},
+		const question = await questionFactory.makePrismaQuestion({
+			authorId: user.id,
 		});
 
 		const response = await request(app.getHttpServer())
-			.get('/questions/test-question')
+			.get(`/questions/${question.slug.value}`)
 			.set('Authorization', `Bearer ${accessToken}`)
 			.send();
 
 		expect(response.statusCode).toBe(200);
 		expect(response.body).toEqual({
 			question: expect.objectContaining({
-				title: 'Test Question',
+				title: question.title,
 			}),
 		});
 	});
