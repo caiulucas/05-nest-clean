@@ -1,5 +1,5 @@
 import { NotAllowedError } from '@/core/errors/not-allowed-error';
-import { ChooseQuestionBestAnswer } from '@/domain/forum/application/use-cases/choose-question-best-answer';
+import { ChooseQuestionBestAnswerUseCase } from '@/domain/forum/application/use-cases/choose-question-best-answer';
 import { makeAnswer } from '../factories/make-answer';
 import { makeQuestion } from '../factories/make-question';
 import { InMemoryAnswerAttachmentsRepository } from '../repositories/in-memory-answer-attachments-repository';
@@ -12,7 +12,7 @@ describe('Choose Question Best Answer Use Case', () => {
 	let answersRepository: InMemoryAnswersRepository;
 	let answerAttachmentsRepository: InMemoryAnswerAttachmentsRepository;
 	let questionAttachmentsRepository: InMemoryQuestionAttachmentsRepository;
-	let sut: ChooseQuestionBestAnswer;
+	let sut: ChooseQuestionBestAnswerUseCase;
 
 	beforeEach(() => {
 		answerAttachmentsRepository = new InMemoryAnswerAttachmentsRepository();
@@ -23,7 +23,10 @@ describe('Choose Question Best Answer Use Case', () => {
 		answersRepository = new InMemoryAnswersRepository(
 			answerAttachmentsRepository,
 		);
-		sut = new ChooseQuestionBestAnswer(questionsRepository, answersRepository);
+		sut = new ChooseQuestionBestAnswerUseCase(
+			questionsRepository,
+			answersRepository,
+		);
 	});
 
 	it('should be able to choose the question best answer', async () => {
@@ -39,7 +42,6 @@ describe('Choose Question Best Answer Use Case', () => {
 
 		await sut.execute({
 			authorId: question.authorId.toValue(),
-			questionId: question.id.toValue(),
 			answerId: answer.id.toValue(),
 		});
 
@@ -58,7 +60,6 @@ describe('Choose Question Best Answer Use Case', () => {
 		const result = await sut.execute({
 			authorId: 'some-author-id',
 			answerId: answer.id.toValue(),
-			questionId: question.id.toValue(),
 		});
 
 		expect(result.isLeft()).toBe(true);

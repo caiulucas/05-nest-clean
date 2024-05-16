@@ -44,7 +44,7 @@ describe('Edit Answer Use Case', () => {
 
 		await sut.execute({
 			...editedAnswer,
-			attachmentIds: [
+			attachmentsIds: [
 				firstAttachment.attachmentId.toValue(),
 				newAttachmentId.toValue(),
 			],
@@ -74,7 +74,7 @@ describe('Edit Answer Use Case', () => {
 			answerId: newAnswer.id.toValue(),
 			authorId: 'some-author-id',
 			content: 'This is a new content',
-			attachmentIds: [],
+			attachmentsIds: [],
 		});
 
 		expect(result.isLeft()).toBe(true);

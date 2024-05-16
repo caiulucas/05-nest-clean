@@ -1,6 +1,7 @@
 import { Either, Left, Right } from '@/core/either';
 import { NotAllowedError } from '@/core/errors/not-allowed-error';
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error';
+import { Injectable } from '@nestjs/common';
 import { Question } from '../../enterprise/entities/question';
 import { AnswersRepository } from '../repositories/answers-repository';
 import { QuestionsRepository } from '../repositories/questions-repository';
@@ -8,7 +9,6 @@ import { QuestionsRepository } from '../repositories/questions-repository';
 interface ChooseQuestionBestAnswerRequest {
 	authorId: string;
 	answerId: string;
-	questionId: string;
 }
 
 type ChooseQuestionBestAnswerResponse = Either<
@@ -18,7 +18,8 @@ type ChooseQuestionBestAnswerResponse = Either<
 	}
 >;
 
-export class ChooseQuestionBestAnswer {
+@Injectable()
+export class ChooseQuestionBestAnswerUseCase {
 	constructor(
 		private questionsRepository: QuestionsRepository,
 		private answersRepository: AnswersRepository,
@@ -27,8 +28,14 @@ export class ChooseQuestionBestAnswer {
 	async execute(
 		request: ChooseQuestionBestAnswerRequest,
 	): Promise<ChooseQuestionBestAnswerResponse> {
+		const answer = await this.answersRepository.findById(request.answerId);
+
+		if (!answer) {
+			return Left.create(new ResourceNotFoundError());
+		}
+
 		const question = await this.questionsRepository.findById(
-			request.questionId,
+			answer.questionId.toValue(),
 		);
 
 		if (!question) {
@@ -37,12 +44,6 @@ export class ChooseQuestionBestAnswer {
 
 		if (request.authorId !== question.authorId.toValue()) {
 			return Left.create(new NotAllowedError());
-		}
-
-		const answer = await this.answersRepository.findById(request.answerId);
-
-		if (!answer) {
-			return Left.create(new ResourceNotFoundError());
 		}
 
 		question.bestAnswerId = answer.id;
