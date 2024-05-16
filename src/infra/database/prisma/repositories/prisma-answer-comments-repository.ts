@@ -11,7 +11,9 @@ import { PrismaService } from '../prisma.service';
 const PAGE_SIZE = 20;
 
 @Injectable()
-export class PrismaAnswerCommentRepository implements AnswerCommentsRepository {
+export class PrismaAnswerCommentsRepository
+	implements AnswerCommentsRepository
+{
 	constructor(private readonly prisma: PrismaService) {}
 
 	async create(comment: AnswerComment) {
