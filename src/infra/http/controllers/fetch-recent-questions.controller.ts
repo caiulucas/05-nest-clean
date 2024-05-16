@@ -22,9 +22,7 @@ export class FetchRecentQuestionsController {
 			throw new BadRequestException();
 		}
 
-		const questions = result.value.questions.map((question) =>
-			questionPresenterToHttp(question),
-		);
+		const questions = result.value.questions.map(questionPresenterToHttp);
 
 		return { questions };
 	}
