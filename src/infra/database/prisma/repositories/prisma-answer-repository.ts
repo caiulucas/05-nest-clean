@@ -19,6 +19,7 @@ export class PrismaAnswersRepository implements AnswersRepository {
 
 		await this.prisma.answer.create({ data });
 	}
+
 	async save(answer: Answer) {
 		const data = answerToPersistance(answer);
 
