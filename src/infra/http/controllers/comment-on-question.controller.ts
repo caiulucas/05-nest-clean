@@ -1,4 +1,4 @@
-import { AnswerQuestionUseCase } from '@/domain/forum/application/use-cases/answer-question';
+import { CommentOnQuestionUseCase } from '@/domain/forum/application/use-cases/comment-on-question';
 import { CurrentUser } from '@/infra/auth/current-user-decorator';
 import { UserPayload } from '@/infra/auth/jwt.strategy';
 import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation.pipe';
@@ -11,29 +11,28 @@ import {
 } from '@nestjs/common';
 import { z } from 'zod';
 
-const answerQuestionBodySchema = z.object({
+const CommentOnQuestionBodySchema = z.object({
 	content: z.string(),
 });
 
-type AnswerQuestionBodySchema = z.infer<typeof answerQuestionBodySchema>;
+type commentOnQuestionBodySchema = z.infer<typeof CommentOnQuestionBodySchema>;
 
-const bodyValidationPipe = new ZodValidationPipe(answerQuestionBodySchema);
+const bodyValidationPipe = new ZodValidationPipe(CommentOnQuestionBodySchema);
 
-@Controller('/questions/:questionId/answers')
-export class AnswerQuestionController {
-	constructor(private readonly answerQuestion: AnswerQuestionUseCase) {}
+@Controller('/questions/:questionId/comments')
+export class CommentOnQuestionController {
+	constructor(private readonly commentOnQuestion: CommentOnQuestionUseCase) {}
 
 	@Post()
 	async handle(
-		@Body(bodyValidationPipe) body: AnswerQuestionBodySchema,
+		@Body(bodyValidationPipe) body: commentOnQuestionBodySchema,
 		@CurrentUser() user: UserPayload,
 		@Param('questionId') questionId: string,
 	) {
-		const result = await this.answerQuestion.execute({
+		const result = await this.commentOnQuestion.execute({
 			content: body.content,
 			questionId,
 			authorId: user.sub,
-			attachmentIds: [],
 		});
 
 		if (result.isLeft()) {
