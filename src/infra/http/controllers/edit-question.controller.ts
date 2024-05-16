@@ -2,21 +2,28 @@ import { EditQuestionUseCase } from '@/domain/forum/application/use-cases/edit-q
 import { CurrentUser } from '@/infra/auth/current-user-decorator';
 import { UserPayload } from '@/infra/auth/jwt.strategy';
 import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation.pipe';
-import { Body, Controller, HttpCode, Param, Put } from '@nestjs/common';
+import {
+	BadRequestException,
+	Body,
+	Controller,
+	HttpCode,
+	Param,
+	Put,
+} from '@nestjs/common';
 import { z } from 'zod';
 
-const createQuestionBodySchema = z.object({
+const editQuestionBodySchema = z.object({
 	title: z.string(),
 	content: z.string(),
 });
 
-type EditQuestionBodySchema = z.infer<typeof createQuestionBodySchema>;
+type EditQuestionBodySchema = z.infer<typeof editQuestionBodySchema>;
 
-const bodyValidationPipe = new ZodValidationPipe(createQuestionBodySchema);
+const bodyValidationPipe = new ZodValidationPipe(editQuestionBodySchema);
 
 @Controller('/questions/:id')
 export class EditQuestionController {
-	constructor(private readonly createQuestion: EditQuestionUseCase) {}
+	constructor(private readonly editQuestion: EditQuestionUseCase) {}
 
 	@Put()
 	@HttpCode(204)
@@ -25,12 +32,16 @@ export class EditQuestionController {
 		@CurrentUser() user: UserPayload,
 		@Param('id') questionId: string,
 	) {
-		await this.createQuestion.execute({
+		const result = await this.editQuestion.execute({
 			questionId,
 			title: body.title,
 			content: body.content,
 			authorId: user.sub,
 			attachmentsIds: [],
 		});
+
+		if (result.isLeft()) {
+			throw new BadRequestException();
+		}
 	}
 }

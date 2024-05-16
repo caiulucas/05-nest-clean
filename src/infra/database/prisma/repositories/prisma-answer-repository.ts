@@ -23,7 +23,7 @@ export class PrismaAnswersRepository implements AnswersRepository {
 	async save(answer: Answer) {
 		const data = answerToPersistance(answer);
 
-		await this.prisma.question.update({ data, where: { id: data.id } });
+		await this.prisma.answer.update({ data, where: { id: data.id } });
 	}
 
 	async delete(answer: Answer) {

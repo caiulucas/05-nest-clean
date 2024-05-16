@@ -2,6 +2,7 @@ import { Either, Left, Right } from '@/core/either';
 import { UniqueEntityId } from '@/core/entities/unique-entity-id';
 import { NotAllowedError } from '@/core/errors/not-allowed-error';
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error';
+import { Injectable } from '@nestjs/common';
 import { Answer } from '../../enterprise/entities/answer';
 import { AnswerAttachment } from '../../enterprise/entities/answer-attachment';
 import { AnswerAttachmentList } from '../../enterprise/entities/answer-attachment-list';
@@ -12,7 +13,7 @@ interface EditAnswerUseCaseRequest {
 	authorId: string;
 	answerId: string;
 	content: string;
-	attachmentIds: string[];
+	attachmentsIds: string[];
 }
 
 type EditAnswerUseCaseResponse = Either<
@@ -22,6 +23,7 @@ type EditAnswerUseCaseResponse = Either<
 	}
 >;
 
+@Injectable()
 export class EditAnswerUseCase {
 	constructor(
 		private answersRepository: AnswersRepository,
@@ -48,7 +50,7 @@ export class EditAnswerUseCase {
 
 		const attachmentList = AnswerAttachmentList.create(currentAttachments);
 
-		const attachments = request.attachmentIds.map((attachmentId) =>
+		const attachments = request.attachmentsIds.map((attachmentId) =>
 			AnswerAttachment.create({
 				attachmentId: new UniqueEntityId(attachmentId),
 				answerId: answer.id,
