@@ -3,8 +3,8 @@ import { UniqueEntityId } from '@/core/entities/unique-entity-id';
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error';
 import { Injectable } from '@nestjs/common';
 import { QuestionComment } from '../../enterprise/entities/question-comment';
-import type { QuestionCommentsRepository } from '../repositories/question-comments-repository';
-import type { QuestionsRepository } from '../repositories/questions-repository';
+import { QuestionCommentsRepository } from '../repositories/question-comments-repository';
+import { QuestionsRepository } from '../repositories/questions-repository';
 
 interface CommentOnQuestionUseCaseRequest {
 	authorId: string;

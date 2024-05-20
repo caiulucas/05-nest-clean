@@ -1,4 +1,4 @@
-import type { FetchQuestionAnswersUseCase } from '@/domain/forum/application/use-cases/fetch-question-answers';
+import { FetchQuestionAnswersUseCase } from '@/domain/forum/application/use-cases/fetch-question-answers';
 import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation.pipe';
 import {
 	BadRequestException,

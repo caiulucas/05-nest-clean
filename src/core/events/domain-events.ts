@@ -1,7 +1,7 @@
-import type { AggregateRoot } from '../entities/aggregate-root';
-import type { UniqueEntityId } from '../entities/unique-entity-id';
+import { AggregateRoot } from '../entities/aggregate-root';
+import { UniqueEntityId } from '../entities/unique-entity-id';
 
-import type { DomainEvent } from './domain-event';
+import { DomainEvent } from './domain-event';
 
 type DomainEventCallback = (event: unknown) => void;
 

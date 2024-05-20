@@ -1,7 +1,7 @@
 import { type Either, Right } from '@/core/either';
 import { Injectable } from '@nestjs/common';
-import type { Answer } from '../../enterprise/entities/answer';
-import type { AnswersRepository } from '../repositories/answers-repository';
+import { Answer } from '../../enterprise/entities/answer';
+import { AnswersRepository } from '../repositories/answers-repository';
 
 interface FetchQuestionAnswersUseCaseRequest {
 	questionId: string;

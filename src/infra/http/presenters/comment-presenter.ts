@@ -1,4 +1,4 @@
-import type { Comment } from '@/domain/forum/enterprise/entities/comment';
+import { Comment } from '@/domain/forum/enterprise/entities/comment';
 
 // biome-ignore lint/suspicious/noExplicitAny: <explanation>
 export function commentPresenterToHttp(comment: Comment<any>) {

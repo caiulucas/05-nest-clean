@@ -1,6 +1,6 @@
 import { UniqueEntityId } from '@/core/entities/unique-entity-id';
 import { AnswerAttachment } from '@/domain/forum/enterprise/entities/answer-attachment';
-import type { Attachment as PrismaAttachment } from '@prisma/client';
+import { Attachment as PrismaAttachment } from '@prisma/client';
 
 export function answerAttachmentToDomain(
 	raw: PrismaAttachment,

@@ -1,5 +1,5 @@
 import { WatchedList } from '@/core/entities/watched-list';
-import type { QuestionAttachment } from './question-attachment';
+import { QuestionAttachment } from './question-attachment';
 
 export class QuestionAttachmentList extends WatchedList<QuestionAttachment> {
 	static create(attachments?: QuestionAttachment[]) {

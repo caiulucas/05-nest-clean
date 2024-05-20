@@ -1,5 +1,5 @@
 import { StudentAlreadyExistsError } from '@/domain/forum/application/use-cases/errors/student-already-exists-error';
-import type { RegisterStudentUseCase } from '@/domain/forum/application/use-cases/register-student';
+import { RegisterStudentUseCase } from '@/domain/forum/application/use-cases/register-student';
 import { Public } from '@/infra/auth/public';
 import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation.pipe';
 import {

@@ -1,6 +1,6 @@
-import type { ChooseQuestionBestAnswerUseCase } from '@/domain/forum/application/use-cases/choose-question-best-answer';
+import { ChooseQuestionBestAnswerUseCase } from '@/domain/forum/application/use-cases/choose-question-best-answer';
 import { CurrentUser } from '@/infra/auth/current-user-decorator';
-import type { UserPayload } from '@/infra/auth/jwt.strategy';
+import { UserPayload } from '@/infra/auth/jwt.strategy';
 import {
 	BadRequestException,
 	Controller,

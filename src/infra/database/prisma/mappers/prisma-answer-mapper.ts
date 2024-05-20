@@ -1,6 +1,6 @@
 import { UniqueEntityId } from '@/core/entities/unique-entity-id';
 import { Answer } from '@/domain/forum/enterprise/entities/answer';
-import type { Prisma, Answer as PrismaAnswer } from '@prisma/client';
+import { Prisma, Answer as PrismaAnswer } from '@prisma/client';
 
 export function answerToDomain(raw: PrismaAnswer): Answer {
 	return Answer.create(

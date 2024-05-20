@@ -3,11 +3,11 @@ import { UniqueEntityId } from '@/core/entities/unique-entity-id';
 import { NotAllowedError } from '@/core/errors/not-allowed-error';
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error';
 import { Injectable } from '@nestjs/common';
-import type { Answer } from '../../enterprise/entities/answer';
+import { Answer } from '../../enterprise/entities/answer';
 import { AnswerAttachment } from '../../enterprise/entities/answer-attachment';
 import { AnswerAttachmentList } from '../../enterprise/entities/answer-attachment-list';
-import type { AnswerAttachmentsRepository } from '../repositories/answer-attachments-repository';
-import type { AnswersRepository } from '../repositories/answers-repository';
+import { AnswerAttachmentsRepository } from '../repositories/answer-attachments-repository';
+import { AnswersRepository } from '../repositories/answers-repository';
 
 interface EditAnswerUseCaseRequest {
 	authorId: string;

@@ -1,6 +1,6 @@
 import { UniqueEntityId } from '@/core/entities/unique-entity-id';
 import { QuestionComment } from '@/domain/forum/enterprise/entities/question-comment';
-import type { Prisma, Comment as PrismaComment } from '@prisma/client';
+import { Prisma, Comment as PrismaComment } from '@prisma/client';
 
 export function questionCommentToDomain(raw: PrismaComment): QuestionComment {
 	if (!raw.questionId) {

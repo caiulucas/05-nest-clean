@@ -1,6 +1,6 @@
-import type { DeleteAnswerCommentUseCase } from '@/domain/forum/application/use-cases/delete-answer-comment';
+import { DeleteAnswerCommentUseCase } from '@/domain/forum/application/use-cases/delete-answer-comment';
 import { CurrentUser } from '@/infra/auth/current-user-decorator';
-import type { UserPayload } from '@/infra/auth/jwt.strategy';
+import { UserPayload } from '@/infra/auth/jwt.strategy';
 import {
 	BadRequestException,
 	Controller,

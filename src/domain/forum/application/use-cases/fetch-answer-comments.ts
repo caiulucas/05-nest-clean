@@ -1,7 +1,7 @@
 import { type Either, Right } from '@/core/either';
 import { Injectable } from '@nestjs/common';
-import type { AnswerComment } from '../../enterprise/entities/answer-comment';
-import type { AnswerCommentsRepository } from '../repositories/answer-comments-repository';
+import { AnswerComment } from '../../enterprise/entities/answer-comment';
+import { AnswerCommentsRepository } from '../repositories/answer-comments-repository';
 
 interface FetchAnswerCommentsUseCaseRequest {
 	answerId: string;

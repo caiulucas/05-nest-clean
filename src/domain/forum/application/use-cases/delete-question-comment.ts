@@ -2,8 +2,8 @@ import { type Either, Left, Right } from '@/core/either';
 import { NotAllowedError } from '@/core/errors/not-allowed-error';
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error';
 import { Injectable } from '@nestjs/common';
-import type { QuestionComment } from '../../enterprise/entities/question-comment';
-import type { QuestionCommentsRepository } from '../repositories/question-comments-repository';
+import { QuestionComment } from '../../enterprise/entities/question-comment';
+import { QuestionCommentsRepository } from '../repositories/question-comments-repository';
 
 interface DeleteQuestionCommentUseCaseRequest {
 	authorId: string;
