@@ -1,4 +1,4 @@
-import { Question } from '@/domain/forum/enterprise/entities/question';
+import type { Question } from '@/domain/forum/enterprise/entities/question';
 
 export function questionPresenterToHttp(question: Question) {
 	return {

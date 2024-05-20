@@ -1,8 +1,8 @@
-import { Either, Left, Right } from '@/core/either';
+import { type Either, Left, Right } from '@/core/either';
 import { NotAllowedError } from '@/core/errors/not-allowed-error';
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error';
-import { Notification } from '../../enterprise/entities/notification';
-import { NotificationsRepository } from '../repositories/notifications-repository';
+import type { Notification } from '../../enterprise/entities/notification';
+import type { NotificationsRepository } from '../repositories/notifications-repository';
 
 interface ReadNotificationUseCaseRequest {
 	notificationId: string;

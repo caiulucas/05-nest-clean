@@ -1,6 +1,6 @@
-import { DeleteQuestionUseCase } from '@/domain/forum/application/use-cases/delete-question';
+import type { DeleteQuestionUseCase } from '@/domain/forum/application/use-cases/delete-question';
 import { CurrentUser } from '@/infra/auth/current-user-decorator';
-import { UserPayload } from '@/infra/auth/jwt.strategy';
+import type { UserPayload } from '@/infra/auth/jwt.strategy';
 import {
 	BadRequestException,
 	Controller,

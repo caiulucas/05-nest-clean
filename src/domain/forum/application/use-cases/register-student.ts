@@ -1,8 +1,8 @@
-import { Either, Left, Right } from '@/core/either';
+import { type Either, Left, Right } from '@/core/either';
 import { Injectable } from '@nestjs/common';
 import { Student } from '../../enterprise/entities/student';
-import { HashGenerator } from '../cryptography/hash-generator';
-import { StudentsRepository } from '../repositories/students-repository';
+import type { HashGenerator } from '../cryptography/hash-generator';
+import type { StudentsRepository } from '../repositories/students-repository';
 import { StudentAlreadyExistsError } from './errors/student-already-exists-error';
 
 interface RegisterStudentUseCaseRequest {

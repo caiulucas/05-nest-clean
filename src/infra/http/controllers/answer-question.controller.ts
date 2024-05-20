@@ -1,6 +1,6 @@
-import { AnswerQuestionUseCase } from '@/domain/forum/application/use-cases/answer-question';
+import type { AnswerQuestionUseCase } from '@/domain/forum/application/use-cases/answer-question';
 import { CurrentUser } from '@/infra/auth/current-user-decorator';
-import { UserPayload } from '@/infra/auth/jwt.strategy';
+import type { UserPayload } from '@/infra/auth/jwt.strategy';
 import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation.pipe';
 import {
 	BadRequestException,

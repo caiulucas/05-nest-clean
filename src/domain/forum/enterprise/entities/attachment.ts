@@ -1,5 +1,5 @@
 import { Entity } from '@/core/entities/entity';
-import { UniqueEntityId } from '@/core/entities/unique-entity-id';
+import type { UniqueEntityId } from '@/core/entities/unique-entity-id';
 
 type AttachmentProps = {
 	title: string;

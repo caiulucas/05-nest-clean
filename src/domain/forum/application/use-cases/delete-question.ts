@@ -1,8 +1,8 @@
-import { Either, Left, Right } from '@/core/either';
+import { type Either, Left, Right } from '@/core/either';
 import { NotAllowedError } from '@/core/errors/not-allowed-error';
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error';
 import { Injectable } from '@nestjs/common';
-import { QuestionsRepository } from '../repositories/questions-repository';
+import type { QuestionsRepository } from '../repositories/questions-repository';
 
 interface DeleteQuestionUseCaseRequest {
 	questionId: string;

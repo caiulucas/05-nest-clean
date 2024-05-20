@@ -1,6 +1,6 @@
 import { UniqueEntityId } from '@/core/entities/unique-entity-id';
 import { Student } from '@/domain/forum/enterprise/entities/student';
-import { Prisma, User as PrismaUser } from '@prisma/client';
+import type { Prisma, User as PrismaUser } from '@prisma/client';
 
 export function studentToDomain(raw: PrismaUser): Student {
 	return Student.create(

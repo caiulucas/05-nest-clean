@@ -1,10 +1,10 @@
-import { Either, Left, Right } from '@/core/either';
+import { type Either, Left, Right } from '@/core/either';
 import { UniqueEntityId } from '@/core/entities/unique-entity-id';
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error';
 import { Injectable } from '@nestjs/common';
 import { AnswerComment } from '../../enterprise/entities/answer-comment';
-import { AnswerCommentsRepository } from '../repositories/answer-comments-repository';
-import { AnswersRepository } from '../repositories/answers-repository';
+import type { AnswerCommentsRepository } from '../repositories/answer-comments-repository';
+import type { AnswersRepository } from '../repositories/answers-repository';
 
 interface CommentOnAnswerUseCaseRequest {
 	authorId: string;

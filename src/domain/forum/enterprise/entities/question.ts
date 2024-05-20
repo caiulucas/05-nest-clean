@@ -1,6 +1,6 @@
 import { AggregateRoot } from '@/core/entities/aggregate-root';
-import { UniqueEntityId } from '@/core/entities/unique-entity-id';
-import { Optional } from '@/core/types/optional';
+import type { UniqueEntityId } from '@/core/entities/unique-entity-id';
+import type { Optional } from '@/core/types/optional';
 import dayjs from 'dayjs';
 import { QuestionBestAnswerChosenEvent } from './events/question-best-answer-chosen-event';
 import { QuestionAttachmentList } from './question-attachment-list';
