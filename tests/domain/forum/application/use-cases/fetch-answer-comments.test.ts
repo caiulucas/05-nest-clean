@@ -1,6 +1,7 @@
 import { UniqueEntityId } from '@/core/entities/unique-entity-id';
 import { AnswerCommentsRepository } from '@/domain/forum/application/repositories/answer-comments-repository';
 import { FetchAnswerCommentsUseCase } from '@/domain/forum/application/use-cases/fetch-answer-comments';
+import { afterAll, beforeEach, describe, expect, it, vi } from 'vitest';
 import { makeAnswerComment } from '../factories/make-answer-comment';
 import { InMemoryAnswerCommentsRepository } from '../repositories/in-memory-answer-comments-repository';
 
@@ -12,7 +13,7 @@ describe('Fetch Answer Comments', () => {
 		answerCommentsRepository = new InMemoryAnswerCommentsRepository();
 		sut = new FetchAnswerCommentsUseCase(answerCommentsRepository);
 
-		vi.useFakeTimers();
+		vi.useFakeTimers({ toFake: ['nextTick'] });
 	});
 
 	afterAll(() => {

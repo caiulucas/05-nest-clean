@@ -1,4 +1,5 @@
 import { AuthenticateStudentUseCase } from '@/domain/forum/application/use-cases/authenticate-student';
+import { beforeEach, describe, expect, it } from 'vitest';
 import { FakeEncrypter } from '../cryptography/fake-encrypter';
 import { FakeHasher } from '../cryptography/fake-hasher';
 import { makeStudent } from '../factories/make-student';

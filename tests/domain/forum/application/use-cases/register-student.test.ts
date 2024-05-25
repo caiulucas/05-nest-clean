@@ -1,4 +1,5 @@
 import { RegisterStudentUseCase } from '@/domain/forum/application/use-cases/register-student';
+import { beforeEach, describe, expect, it } from 'vitest';
 import { FakeHasher } from '../cryptography/fake-hasher';
 import { InMemoryStudentsRepository } from '../repositories/in-memory-students-repository';
 

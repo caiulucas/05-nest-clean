@@ -8,13 +8,11 @@
 		"rules": {
 			"recommended": true,
 			"style": {
-				"useBlockStatements": "error"
+				"useBlockStatements": "error",
+				"useImportType": "off"
 			},
 			"correctness": {
 				"noUnusedVariables": "error"
-			},
-			"nursery": {
-				"noUnusedImports": "error"
 			},
 			"complexity": {
 				"noStaticOnlyClass": "off"

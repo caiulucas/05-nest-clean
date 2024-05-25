@@ -1,5 +1,6 @@
 import { NotAllowedError } from '@/core/errors/not-allowed-error';
 import { DeleteQuestionCommentUseCase } from '@/domain/forum/application/use-cases/delete-question-comment';
+import { beforeEach, describe, expect, it } from 'vitest';
 import { makeQuestionComment } from '../factories/make-question-comment';
 import { InMemoryQuestionCommentsRepository } from '../repositories/in-memory-question-comments-repository';
 

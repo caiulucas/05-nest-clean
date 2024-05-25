@@ -1,5 +1,6 @@
 import { UniqueEntityId } from '@/core/entities/unique-entity-id';
 import { AnswerQuestionUseCase } from '@/domain/forum/application/use-cases/answer-question';
+import { beforeEach, describe, expect, it } from 'vitest';
 import { InMemoryAnswerAttachmentsRepository } from '../repositories/in-memory-answer-attachments-repository';
 import { InMemoryAnswersRepository } from '../repositories/in-memory-answers-repository';
 
@@ -18,7 +19,7 @@ describe('Answer Question Use Case', () => {
 
 	it('should be able to create an question', async () => {
 		const result = await sut.execute({
-			instructorId: '1',
+			authorId: '1',
 			questionId: '1',
 			content:
 				'Hi, this is a testing content for this question. How are you doing today?',

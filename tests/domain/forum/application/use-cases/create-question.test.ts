@@ -1,5 +1,6 @@
 import { UniqueEntityId } from '@/core/entities/unique-entity-id';
 import { CreateQuestionUseCase } from '@/domain/forum/application/use-cases/create-question';
+import { beforeEach, describe, expect, it } from 'vitest';
 import { InMemoryQuestionAttachmentsRepository } from '../repositories/in-memory-question-attachments-repository';
 import { InMemoryQuestionsRepository } from '../repositories/in-memory-questions-repository';
 

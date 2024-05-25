@@ -1,4 +1,5 @@
 import { Either, Left, Right } from '@/core/either';
+import { it, expect } from 'vitest';
 
 function doSomething(shouldSuccess: boolean): Either<string, string> {
 	if (shouldSuccess) {
@@ -8,13 +9,13 @@ function doSomething(shouldSuccess: boolean): Either<string, string> {
 	return Left.create('error');
 }
 
-test('success result', () => {
+it('success result', () => {
 	const success = doSomething(true);
 
 	expect(success.isRight()).toBe(true);
 });
 
-test('error result', () => {
+it('error result', () => {
 	const error = doSomething(false);
 
 	expect(error.isLeft()).toBe(true);

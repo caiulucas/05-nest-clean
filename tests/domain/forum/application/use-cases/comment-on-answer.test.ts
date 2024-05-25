@@ -1,4 +1,5 @@
 import { CommentOnAnswerUseCase } from '@/domain/forum/application/use-cases/comment-on-answer';
+import { beforeEach, describe, expect, it } from 'vitest';
 import { makeAnswer } from '../factories/make-answer';
 import { InMemoryAnswerAttachmentsRepository } from '../repositories/in-memory-answer-attachments-repository';
 import { InMemoryAnswerCommentsRepository } from '../repositories/in-memory-answer-comments-repository';

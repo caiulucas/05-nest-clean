@@ -1,5 +1,6 @@
 import { QuestionsRepository } from '@/domain/forum/application/repositories/questions-repository';
 import { FetchRecentQuestionsUseCase } from '@/domain/forum/application/use-cases/fetch-recent-questions';
+import { beforeEach, describe, expect, it } from 'vitest';
 import { makeQuestion } from '../factories/make-question';
 import { InMemoryQuestionAttachmentsRepository } from '../repositories/in-memory-question-attachments-repository';
 import { InMemoryQuestionsRepository } from '../repositories/in-memory-questions-repository';
