@@ -3,6 +3,7 @@ import { PrismaService } from '@/infra/database/prisma/prisma.service';
 import { INestApplication } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
 import request from 'supertest';
+import { beforeAll, describe, expect, test } from 'vitest';
 
 describe('Create account (E2E)', () => {
 	let app: INestApplication;

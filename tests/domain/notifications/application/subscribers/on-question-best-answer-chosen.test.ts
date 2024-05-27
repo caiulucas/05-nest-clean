@@ -11,7 +11,7 @@ import { InMemoryAnswersRepository } from 'tests/domain/forum/application/reposi
 import { InMemoryQuestionAttachmentsRepository } from 'tests/domain/forum/application/repositories/in-memory-question-attachments-repository';
 import { InMemoryQuestionsRepository } from 'tests/domain/forum/application/repositories/in-memory-questions-repository';
 import { waitFor } from 'tests/utils/wait-for';
-import { MockInstance, beforeEach, it, describe, expect, vi } from 'vitest';
+import { MockInstance, beforeEach, describe, expect, it, vi } from 'vitest';
 import { InMemoryNotificationsRepository } from '../repositories/in-memory-notifications-repository';
 
 let inMemoryQuestionAttachmentsRepository: InMemoryQuestionAttachmentsRepository;

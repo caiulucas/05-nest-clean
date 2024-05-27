@@ -7,6 +7,7 @@ import request from 'supertest';
 import { QuestionFactory } from 'tests/domain/forum/application/factories/make-question';
 import { QuestionCommentFactory } from 'tests/domain/forum/application/factories/make-question-comment';
 import { StudentFactory } from 'tests/domain/forum/application/factories/make-student';
+import { beforeAll, describe, expect, test } from 'vitest';
 
 describe('Fetch Questions QuestionComments (E2E)', () => {
 	let app: INestApplication;

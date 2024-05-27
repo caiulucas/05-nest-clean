@@ -8,6 +8,7 @@ import request from 'supertest';
 import { AnswerFactory } from 'tests/domain/forum/application/factories/make-answer';
 import { QuestionFactory } from 'tests/domain/forum/application/factories/make-question';
 import { StudentFactory } from 'tests/domain/forum/application/factories/make-student';
+import { beforeAll, describe, expect, test } from 'vitest';
 
 describe('Choose Question Best Answer (E2E)', () => {
 	let app: INestApplication;

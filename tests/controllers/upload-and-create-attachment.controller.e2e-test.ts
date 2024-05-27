@@ -5,6 +5,7 @@ import { JwtService } from '@nestjs/jwt';
 import { Test } from '@nestjs/testing';
 import request from 'supertest';
 import { StudentFactory } from 'tests/domain/forum/application/factories/make-student';
+import { beforeAll, describe, expect, test } from 'vitest';
 
 describe('Upload attachment (E2E)', () => {
 	let app: INestApplication;
