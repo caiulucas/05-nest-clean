@@ -12,8 +12,8 @@ import { HttpModule } from './http/http.module';
 			isGlobal: true,
 		}),
 		AuthModule,
-		HttpModule,
 		EnvModule,
+		HttpModule,
 	],
 })
 export class AppModule {}

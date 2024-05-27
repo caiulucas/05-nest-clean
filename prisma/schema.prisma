@@ -79,6 +79,8 @@ model Comment {
 
 model Attachment {
   id         String    @id @default(uuid())
+  title      String 
+  url        String    @unique()
   createdAt  DateTime  @default(now()) @map("created_at")
   updatedAt  DateTime? @updatedAt @map("updated_at")
   answerId   String?   @map("answer_id")
