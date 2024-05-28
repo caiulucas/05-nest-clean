@@ -4,14 +4,14 @@ export abstract class WatchedList<T> {
 	private new: T[];
 	private removed: T[];
 
-	protected constructor(initialItems?: T[]) {
-		this.current = initialItems ?? [];
-		this.initial = initialItems ?? [];
+	constructor(initialItems?: T[]) {
+		this.current = initialItems || [];
+		this.initial = initialItems || [];
 		this.new = [];
 		this.removed = [];
 	}
 
-	protected abstract compareItems(a: T, b: T): boolean;
+	abstract compareItems(a: T, b: T): boolean;
 
 	get currentItems(): T[] {
 		return this.current;
@@ -26,44 +26,36 @@ export abstract class WatchedList<T> {
 	}
 
 	private isCurrentItem(item: T): boolean {
-		return !!this.current.find((itemToCompare) =>
-			this.compareItems(item, itemToCompare),
+		return (
+			this.current.filter((v: T) => this.compareItems(item, v)).length !== 0
 		);
 	}
 
 	private isNewItem(item: T): boolean {
-		return !!this.new.find((itemToCompare) =>
-			this.compareItems(item, itemToCompare),
-		);
+		return this.new.filter((v: T) => this.compareItems(item, v)).length !== 0;
 	}
 
 	private isRemovedItem(item: T): boolean {
-		return !!this.removed.find((itemToCompare) =>
-			this.compareItems(item, itemToCompare),
+		return (
+			this.removed.filter((v: T) => this.compareItems(item, v)).length !== 0
 		);
 	}
 
 	private removeFromNew(item: T): void {
-		this.new = this.new.filter(
-			(itemToRemove) => !this.compareItems(item, itemToRemove),
-		);
+		this.new = this.new.filter((v) => !this.compareItems(v, item));
 	}
 
 	private removeFromCurrent(item: T): void {
-		this.current = this.current.filter(
-			(itemToRemove) => !this.compareItems(item, itemToRemove),
-		);
+		this.current = this.current.filter((v) => !this.compareItems(item, v));
 	}
 
 	private removeFromRemoved(item: T): void {
-		this.removed = this.removed.filter(
-			(itemToRemove) => !this.compareItems(item, itemToRemove),
-		);
+		this.removed = this.removed.filter((v) => !this.compareItems(item, v));
 	}
 
 	private wasAddedInitially(item: T): boolean {
-		return !!this.initial.find((itemToCompare) =>
-			this.compareItems(item, itemToCompare),
+		return (
+			this.initial.filter((v: T) => this.compareItems(item, v)).length !== 0
 		);
 	}
 
@@ -90,6 +82,7 @@ export abstract class WatchedList<T> {
 
 		if (this.isNewItem(item)) {
 			this.removeFromNew(item);
+
 			return;
 		}
 
@@ -99,17 +92,13 @@ export abstract class WatchedList<T> {
 	}
 
 	public update(items: T[]): void {
-		const newItems = items.filter(
-			(item) =>
-				!this.currentItems.some((itemToCompare) =>
-					this.compareItems(item, itemToCompare),
-				),
-		);
+		const newItems = items.filter((a) => {
+			return !this.current.some((b) => this.compareItems(a, b));
+		});
 
-		const removedItems = this.currentItems.filter(
-			(item) =>
-				!items.some((itemToCompare) => this.compareItems(item, itemToCompare)),
-		);
+		const removedItems = this.current.filter((a) => {
+			return !items.some((b) => this.compareItems(a, b));
+		});
 
 		this.current = items;
 		this.new = newItems;

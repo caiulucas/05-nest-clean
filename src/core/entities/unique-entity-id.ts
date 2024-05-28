@@ -16,6 +16,6 @@ export class UniqueEntityId {
 	}
 
 	public equals(id: UniqueEntityId): boolean {
-		return !!(id === this || this.value === id.value);
+		return id.toValue() === this.value;
 	}
 }

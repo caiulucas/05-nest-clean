@@ -1,7 +1,7 @@
 import { UniqueEntityId } from '@/core/entities/unique-entity-id';
 import { AnswersRepository } from '@/domain/forum/application/repositories/answers-repository';
 import { FetchQuestionAnswersUseCase } from '@/domain/forum/application/use-cases/fetch-question-answers';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it, afterAll, vi } from 'vitest';
 import { makeAnswer } from '../factories/make-answer';
 import { InMemoryAnswerAttachmentsRepository } from '../repositories/in-memory-answer-attachments-repository';
 import { InMemoryAnswersRepository } from '../repositories/in-memory-answers-repository';
