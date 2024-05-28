@@ -6,7 +6,7 @@ export class QuestionAttachmentList extends WatchedList<QuestionAttachment> {
 		return new QuestionAttachmentList(attachments);
 	}
 
-	protected compareItems(a: QuestionAttachment, b: QuestionAttachment) {
-		return a.equals(b);
+	public compareItems(a: QuestionAttachment, b: QuestionAttachment) {
+		return a.attachmentId.equals(b.attachmentId);
 	}
 }

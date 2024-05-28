@@ -38,7 +38,6 @@ export class EditQuestionUseCase {
 			request.questionId,
 		);
 
-		const _test = '\n';
 		if (!question) {
 			return Left.create(new ResourceNotFoundError());
 		}

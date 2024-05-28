@@ -15,6 +15,7 @@ import { z } from 'zod';
 const editQuestionBodySchema = z.object({
 	title: z.string(),
 	content: z.string(),
+	attachments: z.array(z.string().uuid()),
 });
 
 type EditQuestionBodySchema = z.infer<typeof editQuestionBodySchema>;
@@ -37,7 +38,7 @@ export class EditQuestionController {
 			title: body.title,
 			content: body.content,
 			authorId: user.sub,
-			attachmentsIds: [],
+			attachmentsIds: body.attachments,
 		});
 
 		if (result.isLeft()) {
