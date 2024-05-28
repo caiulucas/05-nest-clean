@@ -1,5 +1,5 @@
 import { WatchedList } from '@/core/entities/watched-list';
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
 
 class NumberWatchedList extends WatchedList<number> {
 	static create(initialItems?: number[]) {
